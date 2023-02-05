@@ -1,5 +1,5 @@
 {
-    "tasks": {
-        "update-types": "supabase gen types typescript --project-id \"yujqewlvubqtkxllxjvx\" > types/supabase.ts"
-    }
+  "tasks": {
+    "update-types": "supabase gen types typescript --project-id \"yujqewlvubqtkxllxjvx\" > types/supabase.ts"
+  }
 }
