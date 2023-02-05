@@ -1,40 +1,21 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.2.3";
-import { corsHeaders } from "./_shared/cors.ts";
+import createSupabaseClient from "../_shared/client.ts";
+import { errorResponse, optionsResponse, successResponse } from "../_shared/response.ts";
 
-console.log("Hello from Functions!");
+console.log("image-bot get-all function is online!");
 
-serve(async (req) => {
-  if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
-  }
-
-  const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
-  const supabaseKey = Deno.env.get("SUPABASE_ANON_KEY") ?? "";
+serve(async (req: Request): Promise<Response> => {
+  if (req.method === "OPTIONS") return optionsResponse;
 
   try {
-    const supabaseClient = createClient(
-      supabaseUrl,
-      supabaseKey,
-      {
-        global: {
-          headers: { Authorization: req.headers.get("Authorization")! },
-        },
-      },
-    );
+    const client = createSupabaseClient(req);
 
-    const { data, error } = await supabaseClient.from("images").select("*");
+    const { data, error } = await client.from("images").select("*");
     if (error) throw error;
 
-    return new Response(JSON.stringify({ data }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 200,
-    });
+    return successResponse(data);
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 400,
-    });
+    return errorResponse(error);
   }
 });
 
