@@ -1,13 +1,31 @@
 # Image Bot API Design
 
 ## Object Model
-TODO: Describe the image model
+```ts
+{
+    id: number
+    url: string
+}
+```
 
-## Storage
+## Database
 TODO: Describe how images are being stored
 
 ## Create
-TODO: Describe the create route
+Creates a new entry in the database from the details provided in the request body
+
+`POST` [TODO: get a URL]
+
+Request body:
+```js
+{
+    url: "[put-the-url-here]"
+}
+```
+
+Notes:
+
+Only the `"url"` field is required.
 
 ## Read
 TODO: Describe the read routes
