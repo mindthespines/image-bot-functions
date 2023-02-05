@@ -1,6 +1,10 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import createSupabaseClient from "../_shared/client.ts";
-import { errorResponse, optionsResponse, successResponse } from "../_shared/response.ts";
+import {
+  errorResponse,
+  optionsResponse,
+  successResponse,
+} from "../_shared/response.ts";
 
 console.log("image-bot get-all function is online!");
 
